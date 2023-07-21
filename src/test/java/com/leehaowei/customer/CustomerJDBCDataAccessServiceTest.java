@@ -3,14 +3,12 @@ package com.leehaowei.customer;
 import com.leehaowei.AbstractTestcontainers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
 
@@ -85,14 +83,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
     }
 
     @Test
-    void InsertCustomer() {
-        // Given
-        // When
-        // Then
-    }
-
-    @Test
-    void ExistsPersonWithEmail() {
+    void ExistsCustomerWithEmail() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
         Customer customer = new Customer(
@@ -103,26 +94,26 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         underTest.insertCustomer(customer);
 
         // When
-        boolean actual = underTest.existsPersonWithEmail(email);
+        boolean actual = underTest.existsCustomerWithEmail(email);
 
         // Then
         assertThat(actual).isTrue();
     }
 
     @Test
-    void existsPersonWithEmailReturnsFalseWhenDoesNotExists() {
+    void existsCustomerWithEmailReturnsFalseWhenDoesNotExists() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
 
         // When
-        boolean actual = underTest.existsPersonWithEmail(email);
+        boolean actual = underTest.existsCustomerWithEmail(email);
 
         // Then
         assertThat(actual).isFalse();
     }
 
     @Test
-    void ExistsPersonWithId() {
+    void ExistsCustomerWithId() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
         Customer customer = new Customer(
@@ -140,19 +131,19 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 .orElseThrow();
 
         // When
-        var actual = underTest.existsPersonWithId(id);
+        var actual = underTest.existsCustomerWithId(id);
 
         // Then
         assertThat(actual).isTrue();
     }
 
     @Test
-    void existsPersonWithIdWillReturnFalseWhenIdNotPresent() {
+    void existsCustomerWithIdWillReturnFalseWhenIdNotPresent() {
         // Given
         int id = -1;
 
         // When
-        var actual = underTest.existsPersonWithId(id);
+        var actual = underTest.existsCustomerWithId(id);
 
         // Then
         assertThat(actual).isFalse();

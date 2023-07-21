@@ -6,16 +6,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository("jpa")
-public class CustomerJPADataAccessServer implements CustomerDao {
+public class CustomerJPADataAccessService implements CustomerDao {
 
     private final CustomerRepository customerRepository;
 
-    public CustomerJPADataAccessServer(CustomerRepository customerRepository) {
+    public CustomerJPADataAccessService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
     @Override
     public List<Customer> selectAllCustomers() {
+
         return customerRepository.findAll();
     }
 
@@ -31,12 +32,12 @@ public class CustomerJPADataAccessServer implements CustomerDao {
     }
 
     @Override
-    public boolean existsPersonWithEmail(String email) {
+    public boolean existsCustomerWithEmail(String email) {
         return customerRepository.existsCustomerByEmail(email);
     }
 
     @Override
-    public boolean existsPersonWithId(Integer id) {
+    public boolean existsCustomerWithId(Integer id) {
         return customerRepository.existsCustomerById(id);
     }
 
